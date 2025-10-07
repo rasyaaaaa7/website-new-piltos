@@ -1,158 +1,259 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // --- DATA STATIS VERSI 2025 ---
+/* FONT AND BASE STYLES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    // 1. Data Pasangan Calon (Paslon) dan Suara
-    const kandidatData = [
-        { 
-            id: 1, 
-            ketua: "Aditya Pratama", wakil: "Shinta Dewi", 
-            kelas_ketua: "XI MIPA 1", kelas_wakil: "X IPS 2", 
-            suara: 185, 
-            img_ketua: "https://via.placeholder.com/100/1e3c72/FFFFFF?text=KC1", 
-            img_wakil: "https://via.placeholder.com/100/1e3c72/FFFFFF?text=WC1" 
-        },
-        { 
-            id: 2, 
-            ketua: "Bagas Setiawan", wakil: "Rina Amelia", 
-            kelas_ketua: "XII IPS 3", kelas_wakil: "XI MIPA 2", 
-            suara: 250, 
-            img_ketua: "https://via.placeholder.com/100/2ecc71/FFFFFF?text=KC2", 
-            img_wakil: "https://via.placeholder.com/100/2ecc71/FFFFFF?text=WC2" 
-        },
-        { 
-            id: 3, 
-            ketua: "Daffa Ramadhan", wakil: "Maya Sari", 
-            kelas_ketua: "X MIPA 3", kelas_wakil: "X MIPA 1", 
-            suara: 155, 
-            img_ketua: "https://via.placeholder.com/100/f1c40f/FFFFFF?text=KC3", 
-            img_wakil: "https://via.placeholder.com/100/f1c40f/FFFFFF?text=WC3" 
-        }
-    ];
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f7f9fc; /* Light, clean background */
+}
 
-    // 2. Data Daftar Pemilih Tetap (DPT) - Diperbanyak untuk demo
-    const dptData = [];
-    const totalDPT = 600; // Total DPT 600 orang
-    for (let i = 1; i <= totalDPT; i++) {
-        // Contoh sederhana untuk status voted (65% sudah memilih)
-        const votedStatus = Math.random() < 0.65; 
-        const nama = `Pemilih ${i}`;
-        const kelas = `Kelas ${Math.floor(Math.random() * 3) + 1} - ${String.fromCharCode(65 + Math.floor(Math.random() * 5))}`;
-        dptData.push({ no: i, nama: nama, kelas: kelas, voted: votedStatus });
+.container {
+    width: 90%;
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+/* HEADER */
+.header {
+    background-color: #1e3c72; /* Deep Blue */
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-size: 2em;
+    font-weight: 800;
+}
+
+/* TAB NAVIGATION (UNIQUE STYLE) */
+.tabs-nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1em;
+    font-weight: 600;
+    color: #1e3c72;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin: 0 5px;
+}
+
+.tab-button:hover {
+    background-color: #e0f7fa; /* Light cyan hover */
+}
+
+.tab-button.active {
+    background-color: #2ecc71; /* Vibrant Green */
+    color: white;
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.4);
+}
+
+.tab-button i {
+    margin-right: 8px;
+}
+
+/* TAB CONTENT */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s;
+    padding: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    color: #1e3c72;
+    text-align: center;
+}
+
+/* DASHBOARD STATS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    text-align: center;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); 
+    border-left: 5px solid #2ecc71; /* Green highlight */
+}
+
+.stat-card h3 {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.stat-card p {
+    font-size: 2.2em;
+    font-weight: 800;
+}
+
+.stat-card.persentase { border-left-color: #f1c40f; } /* Yellow highlight */
+.stat-card.pemenang { border-left-color: #e74c3c; } /* Red highlight */
+
+/* KANDIDAT CARD (PASLON) */
+.kandidat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.kandidat-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+}
+
+.kandidat-card.winner {
+    border-color: #2ecc71; /* Highlight winner */
+    background-color: #f0fff0;
+}
+
+.paslon-photos {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.paslon-photos img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #1e3c72;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.kandidat-card h3 {
+    font-size: 1.6em;
+    color: #1e3c72;
+    margin-top: 10px;
+}
+
+.kandidat-card p.votes {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: #e74c3c;
+    margin: 10px 0;
+}
+
+.kandidat-card p.persen {
+    font-size: 1.2em;
+    color: #7f8c8d;
+}
+
+.summary-box {
+    text-align: center;
+    padding: 15px;
+    background-color: #fff3cd;
+    color: #856404;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* ABSENSI TABLE & FOOTER (Responsive styles included) */
+#searchInput {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+#dptTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+#dptTable th, #dptTable td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+#dptTable th {
+    background-color: #1e3c72;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.status-voted { color: #2ecc71; font-weight: 600; }
+.status-pending { color: #f1c40f; font-weight: 600; }
+
+.footer {
+    background-color: #1e3c72;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
-
-    // --- LOGIKA PERHITUNGAN ---
-
-    const sudahMemilih = kandidatData.reduce((sum, k) => sum + k.suara, 0); // Total Suara Masuk
-    const persentaseMemilih = ((sudahMemilih / totalDPT) * 100).toFixed(1);
-
-    // Temukan Pemenang
-    let pemenang = kandidatData.reduce((prev, current) => (prev.suara > current.suara) ? prev : current);
-
-    // --- FUNGSI TAMPILAN ---
-
-    // 1. Tampilkan Statistik Dashboard
-    const statsHTML = `
-        <div class="stat-card total-pemilih">
-            <h3>Total DPT</h3>
-            <p>${totalDPT}</p>
-        </div>
-        <div class="stat-card sudah-memilih">
-            <h3>Total Suara Masuk</h3>
-            <p>${sudahMemilih}</p>
-        </div>
-        <div class="stat-card persentase">
-            <h3>Partisipasi</h3>
-            <p>${persentaseMemilih}%</p>
-        </div>
-        <div class="stat-card pemenang">
-            <h3>Paslon Pemenang</h3>
-            <p>No. ${pemenang.id}</p>
-        </div>
-    `;
-    document.querySelector('.stats-grid').innerHTML = statsHTML;
-    document.getElementById('totalSuaraMasuk').textContent = sudahMemilih;
-
-
-    // 2. Tampilkan Hasil Suara Kandidat
-    const kandidatContainer = document.getElementById('kandidatContainer');
-    kandidatData.forEach(kandidat => {
-        const persentaseSuara = ((kandidat.suara / sudahMemilih) * 100).toFixed(1);
-        const isWinner = kandidat.id === pemenang.id;
-        const winnerBadge = isWinner ? '<i class="fas fa-trophy"></i> PEMENANG' : '';
-
-        const card = document.createElement('div');
-        card.className = `kandidat-card ${isWinner ? 'winner' : ''}`;
-        card.innerHTML = `
-            ${winnerBadge}
-            <div class="paslon-photos">
-                <img src="${kandidat.img_ketua}" alt="Ketua ${kandidat.ketua}">
-                <img src="${kandidat.img_wakil}" alt="Wakil ${kandidat.wakil}">
-            </div>
-            <h3>Paslon Nomor ${kandidat.id}</h3>
-            <p><strong>Ketua:</strong> ${kandidat.ketua} (${kandidat.kelas_ketua})</p>
-            <p><strong>Wakil:</strong> ${kandidat.wakil} (${kandidat.kelas_wakil})</p>
-            <p class="votes">${kandidat.suara} Suara</p>
-            <p class="persen">${persentaseSuara}% dari Total Suara Masuk</p>
-        `;
-        kandidatContainer.appendChild(card);
-    });
-
-    // 3. Fungsi Render DPT dan Absensi
-    const dptBody = document.getElementById('dptBody');
-    let currentDPTData = dptData; // Data yang saat ini ditampilkan
-
-    function renderDPT(data) {
-        dptBody.innerHTML = ''; 
-        // Batasi tampilan hanya 50 baris untuk kinerja (atau gunakan pagination pada aplikasi nyata)
-        const displayLimit = 50;
-        const dataToDisplay = data.slice(0, displayLimit); 
-        
-        dataToDisplay.forEach(pemilih => {
-            const statusText = pemilih.voted ? "Sudah Memilih" : "Belum Memilih";
-            const statusClass = pemilih.voted ? "status-voted" : "status-pending";
-
-            const row = dptBody.insertRow();
-            row.innerHTML = `
-                <td>${pemilih.no}</td>
-                <td>${pemilih.nama}</td>
-                <td>${pemilih.kelas}</td>
-                <td class="${statusClass}">${statusText}</td>
-            `;
-        });
-        if (data.length > displayLimit) {
-             const row = dptBody.insertRow();
-             row.innerHTML = `<td colspan="4" style="text-align:center; font-style:italic;">Hanya menampilkan ${displayLimit} data pertama dari ${data.length} total pemilih.</td>`;
-        }
+    .tabs-nav {
+        flex-wrap: wrap;
     }
-
-    renderDPT(currentDPTData); 
-
-    // --- INTERAKTIVITAS (TABS & FILTER) ---
-
-    // Fungsi Pengganti Tab (Penting untuk UI yang menarik!)
-    window.openTab = function(tabName) {
-        const contents = document.querySelectorAll('.tab-content');
-        contents.forEach(content => content.classList.remove('active'));
-
-        const buttons = document.querySelectorAll('.tab-button');
-        buttons.forEach(button => button.classList.remove('active'));
-
-        document.getElementById(tabName).classList.add('active');
-        document.querySelector(`.tab-button[onclick="openTab('${tabName}')"]`).classList.add('active');
+    .tab-button {
+        flex-grow: 1;
+        margin: 5px;
     }
-
-    // Fungsi Filter untuk Absensi
-    window.filterTable = function() {
-        const input = document.getElementById('searchInput').value.toLowerCase();
-        
-        const filteredData = dptData.filter(pemilih => 
-            pemilih.nama.toLowerCase().includes(input) || 
-            pemilih.kelas.toLowerCase().includes(input)
-        );
-
-        renderDPT(filteredData);
-    };
-
-    // Tampilkan tab dashboard saat pertama kali dimuat
-    openTab('dashboard');
-});
+}
+@media (max-width: 600px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    .kandidat-grid {
+        grid-template-columns: 1fr;
+    }
+}
