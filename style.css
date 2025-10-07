@@ -8,149 +8,85 @@
 body {
     font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
-    color: #444;
-    background-color: #f7f9fc; /* Light, clean background */
+    color: #333;
+    background-color: #f0f4f8; /* Soft blue-gray background */
 }
 
 .container {
     width: 90%;
-    max-width: 1250px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
 /* HEADER */
 .header {
-    background-color: #1e3c72; /* Deep Blue */
+    background-color: #34495e; /* Dark Blue-Gray */
     color: white;
     padding: 20px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.logo {
-    font-size: 2em;
-    font-weight: 800;
-}
-
-/* TAB NAVIGATION (UNIQUE STYLE) */
-.tabs-nav {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-    background-color: white;
-    padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.tab-button {
-    background: none;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1em;
-    font-weight: 600;
-    color: #1e3c72;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 8px;
-    margin: 0 5px;
-}
-
-.tab-button:hover {
-    background-color: #e0f7fa; /* Light cyan hover */
-}
-
-.tab-button.active {
-    background-color: #2ecc71; /* Vibrant Green */
-    color: white;
-    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.4);
-}
-
-.tab-button i {
-    margin-right: 8px;
-}
-
-/* TAB CONTENT */
-.tab-content {
-    display: none;
-    animation: fadeIn 0.5s;
-    padding: 20px;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-h2 {
+.header h1 {
     font-size: 1.8em;
+}
+
+/* MAIN INSTRUCTIONS */
+.instruction {
+    text-align: center;
+    margin: 40px 0 10px;
+    font-size: 2em;
+    color: #1abc9c; /* Vivid Green/Cyan */
+}
+
+.warning {
+    text-align: center;
     margin-bottom: 30px;
-    color: #1e3c72;
-    text-align: center;
+    color: #e74c3c;
+    font-weight: 600;
 }
 
-/* DASHBOARD STATS */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    text-align: center;
-}
-
-.stat-card {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* Modern Shadow */
-    border-left: 5px solid #2ecc71; /* Green highlight */
-}
-
-.stat-card h3 {
-    font-size: 0.9em;
-    color: #7f8c8d;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-}
-
-.stat-card p {
-    font-size: 2.2em;
-    font-weight: 800;
-}
-
-.stat-card.persentase { border-left-color: #f1c40f; } /* Yellow highlight */
-.stat-card.pemenang { border-left-color: #e74c3c; } /* Red highlight */
-
-/* KANDIDAT CARD (PASLON) */
+/* KANDIDAT CARD (PILIHAN) */
 .kandidat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    margin-bottom: 40px;
 }
 
 .kandidat-card {
     background: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border: 2px solid transparent;
-    transition: all 0.4s ease;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 5px solid transparent;
 }
 
-.kandidat-card.winner {
-    border-color: #2ecc71; /* Highlight winner */
-    background-color: #f0fff0;
+.kandidat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.kandidat-card.selected {
+    border-color: #1abc9c; /* Border highlight saat dipilih */
+    background-color: #e8f8f5;
+    transform: scale(1.02);
+}
+
+.nomor-paslon {
+    font-size: 4em;
+    font-weight: 800;
+    color: #34495e;
+    line-height: 1;
+    margin-bottom: 10px;
 }
 
 .paslon-photos {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
     margin-bottom: 15px;
 }
 
@@ -159,101 +95,119 @@ h2 {
     height: 100px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #1e3c72;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid #bdc3c7;
 }
 
 .kandidat-card h3 {
-    font-size: 1.6em;
-    color: #1e3c72;
+    font-size: 1.4em;
+    color: #34495e;
     margin-top: 10px;
 }
 
-.kandidat-card p.votes {
-    font-size: 2.5em;
-    font-weight: 800;
-    color: #e74c3c;
-    margin: 10px 0;
-}
-
-.kandidat-card p.persen {
-    font-size: 1.2em;
+.kandidat-card p {
+    font-size: 0.9em;
     color: #7f8c8d;
 }
 
-.summary-box {
+/* KONFIRMASI AREA */
+#konfirmasiArea {
     text-align: center;
-    padding: 15px;
-    background-color: #fff3cd;
-    color: #856404;
-    border-radius: 8px;
-    font-weight: 600;
+    margin-top: 50px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* ABSENSI & FOOTER (Maintain previous styles for simplicity) */
-#searchInput {
-    width: 100%;
-    padding: 12px;
+.pilihan-text {
+    font-size: 1.5em;
+    color: #2c3e50;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
+    font-weight: 700;
+}
+
+.btn {
+    padding: 15px 30px;
+    border: none;
     border-radius: 8px;
-    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s;
 }
 
-.table-responsive {
-    overflow-x: auto;
+.btn-confirm {
+    background-color: #2ecc71; /* Green */
+    color: white;
 }
 
-#dptTable {
+.btn-confirm:hover {
+    background-color: #27ae60;
+}
+
+.btn-cancel {
+    background-color: #f39c12; /* Yellow */
+    color: white;
+}
+
+.btn-cancel:hover {
+    background-color: #e67e22;
+}
+
+/* POPUP SUKSES */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    border-collapse: collapse;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
     background: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: zoomIn 0.5s;
 }
 
-#dptTable th, #dptTable td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #ecf0f1;
+.check-icon {
+    font-size: 4em;
+    color: #1abc9c;
+    margin-bottom: 20px;
 }
 
-#dptTable th {
-    background-color: #1e3c72;
-    color: white;
-    text-transform: uppercase;
-    font-size: 0.9em;
+@keyframes zoomIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
-.status-voted { color: #2ecc71; font-weight: 600; }
-.status-pending { color: #f1c40f; font-weight: 600; }
-
+/* FOOTER */
 .footer {
-    background-color: #1e3c72;
-    color: white;
     text-align: center;
     padding: 20px 0;
+    color: #7f8c8d;
+    font-size: 0.9em;
     margin-top: 50px;
 }
 
 /* RESPONSIVE */
-@media (max-width: 992px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .tabs-nav {
-        flex-wrap: wrap;
-    }
-    .tab-button {
-        flex-grow: 1;
-        margin: 5px;
-    }
-}
-@media (max-width: 600px) {
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
+@media (max-width: 768px) {
     .kandidat-grid {
         grid-template-columns: 1fr;
+    }
+    .instruction {
+        font-size: 1.6em;
+    }
+    .btn {
+        display: block;
+        width: 90%;
+        margin: 10px auto;
     }
 }
