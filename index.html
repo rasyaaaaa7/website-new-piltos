@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASIL PILKETOS 2025 - LIVE MONITORING</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-vote-yea"></i> Pilketos 2025 Live Count</h1>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+
+            <div class="tabs-nav">
+                <button class="tab-button active" onclick="openTab('dashboard')"><i class="fas fa-chart-line"></i> Dashboard Ringkasan</button>
+                <button class="tab-button" onclick="openTab('kandidat')"><i class="fas fa-users"></i> Paslon & Hasil Detail</button>
+                <button class="tab-button" onclick="openTab('absensi')"><i class="fas fa-list-check"></i> Daftar Pemilih (DPT)</button>
+            </div>
+
+            <div id="dashboard" class="tab-content active">
+                <div class="stats-grid">
+                    </div>
+            </div>
+
+            <div id="kandidat" class="tab-content">
+                <h2><i class="fas fa-user-tie"></i> Tiga Pasangan Calon Ketua & Wakil Ketua OSIS</h2>
+                <div id="kandidatContainer" class="kandidat-grid">
+                    </div>
+                <div class="summary-box">
+                     Total Suara Masuk Saat Ini: <span id="totalSuaraMasuk">0</span> Suara | Status: <span id="statusCounting" style="font-weight: 700;">LIVE</span>
+                </div>
+            </div>
+
+            <div id="absensi" class="tab-content">
+                <h2><i class="fas fa-clipboard-user"></i> Daftar Pemilih Tetap (DPT) & Absensi</h2>
+                <input type="text" id="searchInput" placeholder="Cari nama atau kelas pemilih..." onkeyup="filterTable()">
+                
+                <div class="table-responsive">
+                    <table id="dptTable">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Nama Pemilih</th>
+                                <th>Kelas</th>
+                                <th>Status Voting</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dptBody">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Panitia Pilketos. Sistem E-Voting Monitoring.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
